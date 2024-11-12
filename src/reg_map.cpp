@@ -1,5 +1,11 @@
 #include<string.h>
-#include "reg_map.h"
+#include<fstream>
+#include<iostream>
+#include "../include/reg_map.h"
+
+#define LINE_MAX_SIZE 1000
+
+
 
 //constructor
 RegMap::RegMap() : start_addr(0), end_addr(255) 
@@ -201,4 +207,60 @@ int RegMap::AddVarElement(char *name, int reg_addr, int start_bit, int length)
         return 0;
     }
     return -1;
+};
+
+
+int RegMap::ImportRegMapFile(char path[])
+{
+    std::fstream ifs;
+
+    ifs.open(path, std::ios::in);
+    if(ifs.is_open())
+    {
+        char *single_line = new char[LINE_MAX_SIZE + 1];
+
+        while(!ifs.eof())
+        {
+            ifs.getline(single_line, LINE_MAX_SIZE);
+            std::cout << single_line << std::endl;
+            
+        }
+
+        delete[] single_line;
+        ifs.close();
+    }
+    return 0;
+};
+
+int RegMap::ParseLine(char* line)
+{
+    int reg_addr;
+    int reg_default_value;
+    char* tail = line;
+    char* head = line;
+    return 0;
+};
+
+int RegMap::TrimBlank(char str[], int size)
+{
+    const char *blank_set = " \f\n\r\t\v";
+    char *head = str;
+    char *tail = str + size - 1;
+    while(strchr(blank_set, *head) && (head<tail)){
+        head++;
+    }
+    while(strchr(blank_set, *tail) && (tail>=head)){
+        *tail = '\0';
+        tail--;
+    }
+    for (int i = 0; i < size; i++){
+        if(head<=tail){
+            str[i] = *head;
+            head++;
+        }
+        else{
+            str[i] = '\0';
+        }
+    }
+    return 0;
 };

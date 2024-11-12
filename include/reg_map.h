@@ -58,6 +58,10 @@ public:
     int AddVarUnit(char *var_name, WORD value = 0, int length = 8, VarElement *var_element_table = nullptr);
     VarUnit *GetVarUnit(char *name);
     int AddVarElement(char *name, int reg_addr, int start_bit = 7, int length = 1);
+    int ParseLine(char* line);
+    int SplitString(char *p[]);
+    int ImportRegMapFile(char path[]);
+    int TrimBlank(char str[], int size);
 };
 
 #endif
